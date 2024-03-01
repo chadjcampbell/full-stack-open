@@ -45,7 +45,7 @@ const App = () => {
       <section>
         <h2>Anecdote with the most votes</h2>
         <p>{anecdotes[upvotes.indexOf(Math.max(...upvotes))]}</p>
-        <strong>This anecdote has {upvotes[selected]} upvotes</strong>
+        <strong>This anecdote has {Math.max(...upvotes)} upvotes</strong>
       </section>
     </main>
   );
