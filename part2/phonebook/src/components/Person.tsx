@@ -1,4 +1,4 @@
-type PersonType = {
+export type PersonType = {
   name: string;
   number: string;
   id: number;

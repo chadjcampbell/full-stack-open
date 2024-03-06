@@ -10,7 +10,7 @@ const App = () => {
     { name: "Dan Abramov", number: "12-43-234345", id: 3 },
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
-  const [newName, setNewName] = useState("");
+  const [newPerson, setNewPerson] = useState({});
 
   return (
     <div>
@@ -18,7 +18,7 @@ const App = () => {
       <hr />
       <Filter />
       <hr />
-      <PersonForm />
+      <PersonForm persons={persons} setPersons={setPersons} />
       <hr />
       <h2>Numbers</h2>
       {persons.length === 0 ? (
