@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Person from "./components/Person";
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -13,14 +15,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          name: <input />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <hr />
+      <Filter />
+      <hr />
+      <PersonForm />
+      <hr />
       <h2>Numbers</h2>
       {persons.length === 0 ? (
         <p>The phonebook is empty</p>
