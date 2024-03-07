@@ -9,25 +9,39 @@ type PersonFormProps = {
 const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
   const addPerson = (e: FormEvent) => {
     e.preventDefault();
-    const data = new FormData(e.target as HTMLFormElement);
+    const form = e.currentTarget as HTMLFormElement;
+
+    const data = new FormData(form);
     const newPerson = {
       name: data.get("name") as string,
       number: data.get("number") as string,
       id: persons.length + 1,
     };
-    console.log(newPerson);
-    
+    if (persons.some((person) => person.name.includes(newPerson.name))) {
+      alert(`${newPerson.name} is already in the phonebook`);
+    } else {
+      setPersons(persons.concat(newPerson));
+      form.reset();
+    }
+  };
+
   return (
     <form onSubmit={(e) => addPerson(e)}>
       <h3>Add to phonebook</h3>
       <div>
         <label htmlFor="name">Name:</label>
 
-        <input autoComplete="none" name="name" id="name" type="text" />
+        <input required autoComplete="off" name="name" id="name" type="text" />
       </div>
       <div>
         <label htmlFor="number">Number:</label>
-        <input autoComplete="none" name="number" id="number" type="text" />
+        <input
+          required
+          autoComplete="off"
+          name="number"
+          id="number"
+          type="text"
+        />
       </div>
       <div>
         <button type="submit">add</button>
