@@ -10,21 +10,27 @@ const App = () => {
     { name: "Dan Abramov", number: "12-43-234345", id: 3 },
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
-  const [newPerson, setNewPerson] = useState({});
+  const [filteredPersons, setFilteredPersons] = useState(persons);
 
   return (
     <div>
       <h2>Phonebook</h2>
       <hr />
-      <Filter />
+      <Filter
+        persons={persons}
+        filteredPersons={filteredPersons}
+        setFilteredPersons={setFilteredPersons}
+      />
       <hr />
       <PersonForm persons={persons} setPersons={setPersons} />
       <hr />
       <h2>Numbers</h2>
-      {persons.length === 0 ? (
-        <p>The phonebook is empty</p>
+      {filteredPersons.length === 0 ? (
+        <p>No results in the phonebook</p>
       ) : (
-        persons.map((person) => <Person key={person.id} person={person} />)
+        filteredPersons.map((person) => (
+          <Person key={person.id} person={person} />
+        ))
       )}
     </div>
   );
