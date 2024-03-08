@@ -3,15 +3,10 @@ import { PersonType } from "./Person";
 
 type FilterProps = {
   persons: PersonType[];
-  filteredPersons: PersonType[];
   setFilteredPersons: Dispatch<SetStateAction<PersonType[]>>;
 };
 
-const Filter = ({
-  persons,
-  filteredPersons,
-  setFilteredPersons,
-}: FilterProps) => {
+const Filter = ({ persons, setFilteredPersons }: FilterProps) => {
   const filterPeople = (e: ChangeEvent) => {
     const input = e.currentTarget as HTMLInputElement;
     const name = input.value;
@@ -20,7 +15,6 @@ const Filter = ({
     );
     setFilteredPersons(filteredPeople);
   };
-  console.log(filteredPersons);
 
   return (
     <>
