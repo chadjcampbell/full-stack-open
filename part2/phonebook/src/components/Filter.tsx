@@ -1,19 +1,13 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { PersonType } from "./Person";
 
 type FilterProps = {
-  persons: PersonType[];
-  setFilteredPersons: Dispatch<SetStateAction<PersonType[]>>;
+  setFilter: Dispatch<SetStateAction<string>>;
 };
 
-const Filter = ({ persons, setFilteredPersons }: FilterProps) => {
+const Filter = ({ setFilter }: FilterProps) => {
   const filterPeople = (e: ChangeEvent) => {
     const input = e.currentTarget as HTMLInputElement;
-    const name = input.value;
-    const filteredPeople = persons.filter((person) =>
-      person.name.toLowerCase().includes(name.toLowerCase())
-    );
-    setFilteredPersons(filteredPeople);
+    setFilter(input.value);
   };
 
   return (
