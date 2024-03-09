@@ -34,7 +34,14 @@ const App = () => {
       {people.length === 0 ? (
         <p>No results in the phonebook</p>
       ) : (
-        people.map((person) => <Person key={person.id} person={person} />)
+        people.map((person) => (
+          <Person
+            key={person.id}
+            person={person}
+            persons={persons}
+            setPersons={setPersons}
+          />
+        ))
       )}
     </div>
   );
