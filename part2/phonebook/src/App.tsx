@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Person, { PersonType } from "./components/Person";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
-import axios from "axios";
+import personService from "./services/personService";
 
 const App = () => {
   const [persons, setPersons] = useState<PersonType[]>([]);
@@ -10,10 +10,9 @@ const App = () => {
 
   useEffect(() => {
     async function fetchPeople() {
-      const res = await axios.get("http://localhost:3001/persons");
-
-      setPersons(res.data);
-      setFilteredPersons(res.data);
+      const data = await personService.getAllPersons();
+      setPersons(data);
+      setFilteredPersons(data);
     }
     if (persons.length === 0) {
       fetchPeople();
