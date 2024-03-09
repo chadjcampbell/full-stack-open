@@ -1,5 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import { PersonType } from "./Person";
+import personService from "../services/personService";
 
 type PersonFormProps = {
   persons: PersonType[];
@@ -20,6 +21,7 @@ const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
     if (persons.some((person) => person.name.includes(newPerson.name))) {
       alert(`${newPerson.name} is already in the phonebook`);
     } else {
+      personService.createPerson(newPerson);
       setPersons(persons.concat(newPerson));
       form.reset();
     }
