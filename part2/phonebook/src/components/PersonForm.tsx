@@ -18,8 +18,24 @@ const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
       number: data.get("number") as string,
       id: persons.length + 1,
     };
-    if (persons.some((person) => person.name.includes(newPerson.name))) {
-      alert(`${newPerson.name} is already in the phonebook`);
+    const duplicatePerson = persons.find((p) => p.name === newPerson.name);
+    // if person already in phonebook - confirm then update
+    if (duplicatePerson) {
+      if (
+        confirm(
+          `${newPerson.name} is already in the phonebook, would you like to update their number?`
+        )
+      ) {
+        personService.updatePerson(duplicatePerson.id, newPerson);
+        setPersons(
+          persons.map((p) =>
+            p.id === duplicatePerson.id ? { ...p, number: newPerson.number } : p
+          )
+        );
+        form.reset();
+      } else {
+        return;
+      }
     } else {
       personService.createPerson(newPerson);
       setPersons(persons.concat(newPerson));
