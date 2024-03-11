@@ -2,7 +2,7 @@
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #333;
+  background-color: #c6c6c6;
   color: #fff;
   text-align: center;
   border-radius: 2px;
@@ -11,12 +11,23 @@
   z-index: 1;
   left: 50%;
   top: 30px;
+  border-radius: 10px;
 }
 
 #toast.show {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#toast.success {
+  border: solid 5px green;
+  color: green;
+}
+
+#toast.error {
+  border: solid 5px red;
+  color: red;
 }
 
 @-webkit-keyframes fadein {

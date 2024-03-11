@@ -6,8 +6,10 @@ type ToastProps = {
 };
 
 const Toast = ({ showToast, toastMessage }: ToastProps) => {
+  const isShow = showToast ? "show" : "";
+  const isError = toastMessage.includes("Error") ? "error" : "success";
   return (
-    <div id="toast" className={showToast ? "show" : ""}>
+    <div id="toast" className={`${isShow} ${isError}`}>
       {toastMessage}
     </div>
   );
