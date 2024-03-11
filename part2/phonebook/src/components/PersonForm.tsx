@@ -15,7 +15,7 @@ const PersonForm = ({
   setShowToast,
   setToastMessage,
 }: PersonFormProps) => {
-  const addPerson = (e: FormEvent) => {
+  const addPerson = async (e: FormEvent) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
 
@@ -23,7 +23,7 @@ const PersonForm = ({
     const newPerson = {
       name: data.get("name") as string,
       number: data.get("number") as string,
-      id: persons.length + 1,
+      id: (persons.length + 1).toString(),
     };
     const duplicatePerson = persons.find((p) => p.name === newPerson.name);
     // if person already in phonebook - confirm then update
@@ -33,18 +33,33 @@ const PersonForm = ({
           `${newPerson.name} is already in the phonebook, would you like to update their number?`
         )
       ) {
-        setToastMessage(`Phone number updated for ${newPerson.name}`);
-        setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-        }, 2750);
-        personService.updatePerson(duplicatePerson.id, newPerson);
-        setPersons(
-          persons.map((p) =>
-            p.id === duplicatePerson.id ? { ...p, number: newPerson.number } : p
-          )
-        );
-        form.reset();
+        try {
+          await personService.updatePerson(duplicatePerson.id, newPerson);
+          setPersons(
+            persons.map((p) =>
+              p.id === duplicatePerson.id
+                ? { ...p, number: newPerson.number }
+                : p
+            )
+          );
+          setToastMessage(`Phone number updated for ${newPerson.name}`);
+          setShowToast(true);
+          setTimeout(() => {
+            setShowToast(false);
+            setToastMessage("");
+          }, 2750);
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          setToastMessage(
+            `Error: ${newPerson.name} no longer exists in the phonebook`
+          );
+          setShowToast(true);
+          setTimeout(() => {
+            setShowToast(false);
+            setToastMessage("");
+          }, 2750);
+        }
       } else {
         return;
       }
@@ -53,6 +68,7 @@ const PersonForm = ({
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
+        setToastMessage("");
       }, 2750);
       personService.createPerson(newPerson);
       setPersons(persons.concat(newPerson));

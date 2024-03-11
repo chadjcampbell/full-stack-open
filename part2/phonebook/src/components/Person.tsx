@@ -4,7 +4,7 @@ import personService from "../services/personService";
 export type PersonType = {
   name: string;
   number: string;
-  id: number;
+  id: string;
 };
 
 type PersonProps = {

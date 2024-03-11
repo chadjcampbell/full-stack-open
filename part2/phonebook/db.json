@@ -26,19 +26,9 @@
       "id": "5"
     },
     {
-      "id": 6,
+      "id": "7",
       "name": "Greg",
-      "number": "2"
-    },
-    {
-      "id": 7,
-      "name": "Bob",
-      "number": "4"
-    },
-    {
-      "id": 8,
-      "name": "Phil",
-      "number": "4"
+      "number": "3"
     }
   ]
 }

@@ -14,13 +14,17 @@ const createPerson = async (newPerson: PersonType) => {
   return response.data;
 };
 
-const updatePerson = async (id: number, updatedPerson: PersonType) => {
-  const request = axios.put(`${baseUrl}/${id}`, updatedPerson);
-  const response = await request;
-  return response.data;
+const updatePerson = async (id: string, updatedPerson: PersonType) => {
+  try {
+    const request = axios.put(`${baseUrl}/${id}`, updatedPerson);
+    const response = await request;
+    return response.data;
+  } catch (err: unknown) {
+    throw new Error(err as string);
+  }
 };
 
-const deletePerson = async (id: number) => {
+const deletePerson = async (id: string) => {
   const request = axios.delete(`${baseUrl}/${id}`);
   const response = await request;
   return response.data;
