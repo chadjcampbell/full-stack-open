@@ -9,7 +9,7 @@ const App = () => {
   const [persons, setPersons] = useState<PersonType[]>([]);
   const [filter, setFilter] = useState("");
 
-  const [showToast, setShowToast] = useState(true);
+  const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("Test");
 
   useEffect(() => {
@@ -33,7 +33,12 @@ const App = () => {
       <hr />
       <Filter setFilter={setFilter} />
       <hr />
-      <PersonForm persons={persons} setPersons={setPersons} />
+      <PersonForm
+        persons={persons}
+        setPersons={setPersons}
+        setShowToast={setShowToast}
+        setToastMessage={setToastMessage}
+      />
       <hr />
       <h2>Numbers</h2>
       {people.length === 0 ? (

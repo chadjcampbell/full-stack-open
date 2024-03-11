@@ -5,9 +5,16 @@ import personService from "../services/personService";
 type PersonFormProps = {
   persons: PersonType[];
   setPersons: Dispatch<SetStateAction<PersonType[]>>;
+  setShowToast: Dispatch<SetStateAction<boolean>>;
+  setToastMessage: Dispatch<SetStateAction<string>>;
 };
 
-const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
+const PersonForm = ({
+  persons,
+  setPersons,
+  setShowToast,
+  setToastMessage,
+}: PersonFormProps) => {
   const addPerson = (e: FormEvent) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
@@ -26,6 +33,11 @@ const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
           `${newPerson.name} is already in the phonebook, would you like to update their number?`
         )
       ) {
+        setToastMessage(`Phone number updated for ${newPerson.name}`);
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2750);
         personService.updatePerson(duplicatePerson.id, newPerson);
         setPersons(
           persons.map((p) =>
@@ -37,6 +49,11 @@ const PersonForm = ({ persons, setPersons }: PersonFormProps) => {
         return;
       }
     } else {
+      setToastMessage(`${newPerson.name} added to phonebook`);
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2750);
       personService.createPerson(newPerson);
       setPersons(persons.concat(newPerson));
       form.reset();
