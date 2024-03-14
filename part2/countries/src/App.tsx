@@ -8,6 +8,7 @@ export type CountryType = {
   capital: string[];
   area: number;
   languages: { [key: string]: string };
+  flags: { alt: string; png: string };
 };
 
 function App() {
