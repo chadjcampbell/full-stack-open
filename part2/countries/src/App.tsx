@@ -9,6 +9,7 @@ export type CountryType = {
   area: number;
   languages: { [key: string]: string };
   flags: { alt: string; png: string };
+  latlng: number[];
 };
 
 function App() {
