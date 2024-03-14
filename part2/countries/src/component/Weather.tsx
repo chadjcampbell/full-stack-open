@@ -12,7 +12,7 @@ const Weather = ({ country }: WeatherProps) => {
   useEffect(() => {
     const getWeatherData = async () => {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/3.0/onecall?lat=${country.latlng[0]}&lon=${country.latlng[1]}&appid=${API_KEY}`
+        `https://api.weatherapi.com/v1/current.json?q=${country.latlng[0]},${country.latlng[1]}&key=${API_KEY}`
       );
       setWeatherData(res.data);
     };
