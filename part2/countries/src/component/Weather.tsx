@@ -2,13 +2,23 @@ import { useEffect, useState } from "react";
 import { CountryType } from "../App";
 import axios from "axios";
 
+type WeatherDataType = {
+  current: {
+    temp_c: number;
+    condition: { icon: string; text: string };
+    wind_mph: number;
+  };
+};
+
 type WeatherProps = {
   country: CountryType;
 };
 
 const Weather = ({ country }: WeatherProps) => {
-  const [weatherData, setWeatherData] = useState({});
+  const [weatherData, setWeatherData] = useState<WeatherDataType | null>(null);
+
   const API_KEY = import.meta.env.VITE_WEATHER_API;
+
   useEffect(() => {
     const getWeatherData = async () => {
       const res = await axios.get(
@@ -16,13 +26,22 @@ const Weather = ({ country }: WeatherProps) => {
       );
       setWeatherData(res.data);
     };
-    if (Object.keys(weatherData).length === 0) {
+    if (!weatherData) {
       getWeatherData();
     }
   });
-  console.log(weatherData);
 
-  return <h4>Weather for {country.name.common}</h4>;
+  return (
+    <section>
+      <h4>Weather for {country.name.common}</h4>
+      <p>Temperature: {weatherData?.current.temp_c} Celcius</p>
+      <img
+        src={weatherData?.current.condition.icon}
+        alt={weatherData?.current.condition.text}
+      />
+      <p>Wind: {weatherData?.current.wind_mph} mph</p>
+    </section>
+  );
 };
 
 export default Weather;

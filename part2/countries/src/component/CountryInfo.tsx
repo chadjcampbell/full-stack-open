@@ -6,8 +6,6 @@ type CountryInfoProps = {
 };
 
 const CountryInfo = ({ country }: CountryInfoProps) => {
-  console.log(country);
-
   return (
     <>
       <section>
@@ -22,9 +20,7 @@ const CountryInfo = ({ country }: CountryInfoProps) => {
         </ul>
         <img src={country.flags.png} alt={country.flags.alt} />
       </section>
-      <section>
-        <Weather country={country} />
-      </section>
+      <Weather country={country} />
     </>
   );
 };
