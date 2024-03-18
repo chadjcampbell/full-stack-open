@@ -1,22 +1,25 @@
 import axios from "axios";
 import { PersonType } from "../components/Person";
-const baseUrl = "http://localhost:3001/persons";
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const getAllPersons = async () => {
-  const request = axios.get(baseUrl);
+  const request = axios.get(baseUrl + "api/persons");
   const response = await request;
   return response.data;
 };
 
 const createPerson = async (newPerson: PersonType) => {
-  const request = axios.post(baseUrl, newPerson);
+  const request = axios.post(baseUrl + "api/persons", newPerson);
   const response = await request;
   return response.data;
 };
 
 const updatePerson = async (id: string, updatedPerson: PersonType) => {
   try {
-    const request = axios.put(`${baseUrl}/${id}`, updatedPerson);
+    const request = axios.put(
+      `${baseUrl + "api/persons"}/${id}`,
+      updatedPerson
+    );
     const response = await request;
     return response.data;
   } catch (err: unknown) {
@@ -25,7 +28,7 @@ const updatePerson = async (id: string, updatedPerson: PersonType) => {
 };
 
 const deletePerson = async (id: string) => {
-  const request = axios.delete(`${baseUrl}/${id}`);
+  const request = axios.delete(`${baseUrl + "api/persons"}/${id}`);
   const response = await request;
   return response.data;
 };
